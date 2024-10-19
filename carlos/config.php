@@ -3,12 +3,12 @@
 define('APPLICATION', 'Admin');
 
 // HTTP
-define('HTTP_SERVER', 'http://localhost/opencart/admin/');
+define('HTTP_SERVER', 'http://localhost/opencart/carlos/');
 define('HTTP_CATALOG', 'http://localhost/opencart/');
 
 // DIR
 define('DIR_OPENCART', 'C:/xampp/htdocs/opencart/');
-define('DIR_APPLICATION', DIR_OPENCART . 'admin/');
+define('DIR_APPLICATION', DIR_OPENCART . 'carlos/');
 define('DIR_EXTENSION', DIR_OPENCART . 'extension/');
 define('DIR_IMAGE', DIR_OPENCART . 'image/');
 define('DIR_SYSTEM', DIR_OPENCART . 'system/');
