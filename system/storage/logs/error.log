@@ -1,0 +1,9 @@
+2024-10-19 07:04:24 - Class "Twig\Loader\FilesystemLoader" not found: in C:\xampp\htdocs\opencart\system\library\template\twig.php on line 39
+2024-10-19 07:04:27 - PHP Warning: rmdir(C:/xampp/htdocs/opencart/system/storage/logs): Directory not empty
+File: C:\xampp\htdocs\opencart\admin\controller\common\security.php
+Line: 232
+
+2024-10-19 07:04:27 - PHP Warning: rmdir(C:/xampp/htdocs/opencart/system/storage/): Directory not empty
+File: C:\xampp\htdocs\opencart\admin\controller\common\security.php
+Line: 236
+
