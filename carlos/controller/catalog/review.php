@@ -264,6 +264,7 @@ class Review extends \Opencart\System\Engine\Controller {
 		$data['sort_product'] = $this->url->link('catalog/review.list', 'user_token=' . $this->session->data['user_token'] . '&sort=pd.name' . $url);
 		$data['sort_author'] = $this->url->link('catalog/review.list', 'user_token=' . $this->session->data['user_token'] . '&sort=r.author' . $url);
 		$data['sort_rating'] = $this->url->link('catalog/review.list', 'user_token=' . $this->session->data['user_token'] . '&sort=r.rating' . $url);
+		$data['sort_valueForMoney'] = $this->url->link('catalog/review.list', 'user_token=' . $this->session->data['user_token'] . '&sort=r.valueForMoney' . $url);
 		$data['sort_date_added'] = $this->url->link('catalog/review.list', 'user_token=' . $this->session->data['user_token'] . '&sort=r.date_added' . $url);
 
 		$url = '';
@@ -419,6 +420,12 @@ class Review extends \Opencart\System\Engine\Controller {
 		}
 
 		if (!empty($review_info)) {
+			$data['valueForMoney'] = $review_info['valueForMoney'];
+		} else {
+			$data['valueFormMoney'] = '';
+		}
+
+		if (!empty($review_info)) {
 			$data['date_added'] = ($review_info['date_added'] != '0000-00-00 00:00' ? $review_info['date_added'] : date('Y-m-d'));
 		} else {
 			$data['date_added'] = date('Y-m-d');
@@ -465,6 +472,10 @@ class Review extends \Opencart\System\Engine\Controller {
 
 		if (!isset($this->request->post['rating']) || $this->request->post['rating'] < 0 || $this->request->post['rating'] > 5) {
 			$json['error']['rating'] = $this->language->get('error_rating');
+		}
+
+		if (!isset($this->request->post['valueForMoney']) || $this->request->post['valueForMoney'] < 0 || $this->request->post['valueForMoney'] > 5) {
+			$json['error']['valueForMoney'] = $this->language->get('error_valueForMoney');
 		}
 
 		if (isset($json['error']) && !isset($json['error']['warning'])) {
@@ -557,6 +568,11 @@ class Review extends \Opencart\System\Engine\Controller {
 			foreach ($results as $result) {
 				$this->model_catalog_product->editRating($result['product_id'], $this->model_catalog_review->getRating($result['product_id']));
 			}
+
+			foreach ($results as $result) {
+				$this->model_catalog_product->editValueForMoney($result['product_id'], $this->model_catalog_review->getValueForMoney($result['product_id']));
+			}
+
 
 			if ($total && $end < $total) {
 				$json['text'] = sprintf($this->language->get('text_next'), $end, $total);

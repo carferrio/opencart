@@ -12,7 +12,7 @@ class Review extends \Opencart\System\Engine\Model {
 	 * @return int
 	 */
 	public function addReview(array $data): int {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "review` SET `author` = '" . $this->db->escape((string)$data['author']) . "', `product_id` = '" . (int)$data['product_id'] . "', `text` = '" . $this->db->escape(strip_tags((string)$data['text'])) . "', `rating` = '" . (int)$data['rating'] . "', `status` = '" . (bool)(isset($data['status']) ? $data['status'] : 0) . "', `date_added` = '" . $this->db->escape((string)$data['date_added']) . "'");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "review` SET `author` = '" . $this->db->escape((string)$data['author']) . "', `product_id` = '" . (int)$data['product_id'] . "', `text` = '" . $this->db->escape(strip_tags((string)$data['text'])) . "', `rating` = '" . (int)$data['rating'] . "', `valueForMoney` = '" . (int)$data['valueForMoney'] . "', `status` = '" . (bool)(isset($data['status']) ? $data['status'] : 0) . "', `date_added` = '" . $this->db->escape((string)$data['date_added']) . "'");
 
 		$review_id = $this->db->getLastId();
 
@@ -33,7 +33,7 @@ class Review extends \Opencart\System\Engine\Model {
 	 * @return void
 	 */
 	public function editReview(int $review_id, array $data): void {
-		$this->db->query("UPDATE `" . DB_PREFIX . "review` SET `author` = '" . $this->db->escape((string)$data['author']) . "', `product_id` = '" . (int)$data['product_id'] . "', `text` = '" . $this->db->escape(strip_tags((string)$data['text'])) . "', `rating` = '" . (int)$data['rating'] . "', `status` = '" . (bool)(isset($data['status']) ? $data['status'] : 0) . "', `date_added` = '" . $this->db->escape((string)$data['date_added']) . "', `date_modified` = NOW() WHERE `review_id` = '" . (int)$review_id . "'");
+		$this->db->query("UPDATE `" . DB_PREFIX . "review` SET `author` = '" . $this->db->escape((string)$data['author']) . "', `product_id` = '" . (int)$data['product_id'] . "', `text` = '" . $this->db->escape(strip_tags((string)$data['text'])) . "', `rating` = '" . (int)$data['rating'] . "', `valueForMoney` = '" . (int)$data['valueForMoney'] . "', `status` = '" . (bool)(isset($data['status']) ? $data['status'] : 0) . "', `date_added` = '" . $this->db->escape((string)$data['date_added']) . "', `date_modified` = NOW() WHERE `review_id` = '" . (int)$review_id . "'");
 
 		// Update product rating
 		$this->load->model('catalog/product');
@@ -89,13 +89,25 @@ class Review extends \Opencart\System\Engine\Model {
 		}
 	}
 
+	//function to get Value For Money rating on review list
+
+	public function getValueForMoneyRating(int $product_id): int {
+		$query = $this->db->query("SELECT AVG(`valueForMoney`) AS `total` FROM `" . DB_PREFIX . "valueForMoney` WHERE `product_id` = '" . (int)$product_id . "' AND `status` = '1'");
+
+		if ($query->num_rows) {
+			return (int)$query->row['total'];
+		} else {
+			return 0;
+		}
+	}
+
 	/**
 	 * @param array $data
 	 *
 	 * @return array
 	 */
 	public function getReviews(array $data = []): array {
-		$sql = "SELECT r.`review_id`, pd.`name`, r.`author`, r.`rating`, r.`status`, r.`date_added` FROM `" . DB_PREFIX . "review` r LEFT JOIN `" . DB_PREFIX . "product_description` pd ON (r.`product_id` = pd.`product_id`) WHERE pd.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
+		$sql = "SELECT r.`review_id`, pd.`name`, r.`author`, r.`rating`, r.`valueForMoney` , r.`status`, r.`date_added` FROM `" . DB_PREFIX . "review` r LEFT JOIN `" . DB_PREFIX . "product_description` pd ON (r.`product_id` = pd.`product_id`) WHERE pd.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
 
 		if (!empty($data['filter_product'])) {
 			$sql .= " AND pd.`name` LIKE '" . $this->db->escape((string)$data['filter_product'] . '%') . "'";
@@ -121,6 +133,7 @@ class Review extends \Opencart\System\Engine\Model {
 			'pd.name',
 			'r.author',
 			'r.rating',
+			'r.valueForMoney',
 			'r.status',
 			'r.date_added'
 		];
