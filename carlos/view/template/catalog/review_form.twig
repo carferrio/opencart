@@ -65,6 +65,29 @@
               <div id="error-rating" class="invalid-feedback"></div>
             </div>
           </div>
+           <div class="row mb-3 required">
+            <label for="input-valueForMoney" class="col-sm-2 col-form-label">{{ entry_valueForMoney }}</label>
+            <div class="col-sm-10">
+              <div id="input-valueForMoney">
+                <div class="form-check form-check-inline">
+                  <input type="radio" name="valueForMoney" value="1" id="input-valueForMoney-1" class="form-check-input"{% if valueForMoney == 1 %} checked{% endif %}/> <label for="input-valueForMoney-1" class="form-check-label">1</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input type="radio" name="valueForMoney" value="2" id="input-valueForMoney-2" class="form-check-input"{% if valueForMoney == 2 %} checked{% endif %}/> <label for="input-valueForMoney-2" class="form-check-label">2</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input type="radio" name="valueForMoney" value="3" id="input-valueForMoney-3" class="form-check-input"{% if valueForMoney == 3 %} checked{% endif %}/> <label for="input-valueForMoney-3" class="form-check-label">3</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input type="radio" name="valueForMoney" value="4" id="input-valueForMoneyg-4" class="form-check-input"{% if valueForMoney == 4 %} checked{% endif %}/> <label for="input-valueForMoney-4" class="form-check-label">4</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input type="radio" name="valueForMoney" value="5" id="input-valueForMoney-5" class="form-check-input"{% if valueForMoney == 5 %} checked{% endif %}/> <label for="input-valueForMoney-5" class="form-check-label">5</label>
+                </div>
+              </div>
+              <div id="error-rating" class="invalid-feedback"></div>
+            </div>
+          </div>
           <div class="row mb-3">
             <label for="input-date-added" class="col-sm-2 col-form-label">{{ entry_date_added }}</label>
             <div class="col-sm-10 col-md-4">

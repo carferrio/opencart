@@ -22,6 +22,7 @@ $_['column_action']     = 'Action';
 $_['entry_product']     = 'Product';
 $_['entry_author']      = 'Author';
 $_['entry_rating']      = 'Rating';
+$_['entry_valueForMoney'] = 'Value for money';
 $_['entry_status']      = 'Status';
 $_['entry_text']        = 'Text';
 $_['entry_date_from']   = 'Date From';
