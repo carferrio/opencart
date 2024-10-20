@@ -76,7 +76,8 @@ class Review extends \Opencart\System\Engine\Controller {
 		$keys = [
 			'name',
 			'text',
-			'rating'
+			'rating',
+			'valueForMoney'
 		];
 
 		foreach ($keys as $key) {
@@ -85,9 +86,9 @@ class Review extends \Opencart\System\Engine\Controller {
 			}
 		}
 
-		$this->load->model('product/product');
+		$this->load->model('catalog/product');
 
-		$product_info = $this->model_product_product->getProduct($product_id);
+		$product_info = $this->model_catalog_product->getProduct($product_id);
 
 		if (!$product_info) {
 			$json['error']['warning'] = $this->language->get('error_product');
@@ -103,6 +104,10 @@ class Review extends \Opencart\System\Engine\Controller {
 
 		if ($this->request->post['rating'] < 1 || $this->request->post['rating'] > 5) {
 			$json['error']['rating']  = $this->language->get('error_rating');
+		} 
+
+		if ($this->request->post['valueForMoney'] < 1 || $this->request->post['valueForMoney'] > 5) {
+			$json['error']['valueForMoney']  = $this->language->get('error_valueForMoney');
 		}
 
 		if (!$this->customer->isLogged() && !$this->config->get('config_review_guest')) {
@@ -180,6 +185,7 @@ class Review extends \Opencart\System\Engine\Controller {
 				'author'     => $result['author'],
 				'text'       => nl2br($result['text']),
 				'rating'     => (int)$result['rating'],
+				'valueForMoney'     => (int)$result['valueForMoney'],
 				'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added']))
 			];
 		}
