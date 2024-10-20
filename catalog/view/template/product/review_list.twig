@@ -8,8 +8,19 @@
       <tr>
         <td colspan="2"><p>{{ review.text }}</p>
           <div class="rating">
+          <strong><p>{{ entry_rating}}</p></strong>
             {% for i in 1..5 %}
               {% if review.rating < i %}
+                <span class="fa-stack"><i class="fa-regular fa-star fa-stack-1x"></i></span>
+              {% else %}
+                <span class="fa-stack"><i class="fa-solid fa-star fa-stack-1x"></i><i class="fa-regular fa-star fa-stack-1x"></i></span>
+              {% endif %}
+            {% endfor %}
+          </div>
+          <div class="valueForMoney">
+          <strong><p>{{ entry_valueForMoney}}</p></strong>
+            {% for i in 1..5 %}
+              {% if review.valueForMoney < i %}
                 <span class="fa-stack"><i class="fa-regular fa-star fa-stack-1x"></i></span>
               {% else %}
                 <span class="fa-stack"><i class="fa-solid fa-star fa-stack-1x"></i><i class="fa-regular fa-star fa-stack-1x"></i></span>

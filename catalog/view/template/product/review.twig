@@ -28,6 +28,23 @@
       </div>
       <div id="error-rating" class="invalid-feedback"></div>
     </div>
+    <div class="row mb-3 required">
+      <label class="form-label">{{ entry_valueForMoney }}</label>
+      <div id="input-valueForMoney">
+        {{ entry_bad }}&nbsp;
+        <input type="radio" name="valueForMoney" value="1" class="form-check-input"/>
+        &nbsp;
+        <input type="radio" name="valueForMoney" value="2" class="form-check-input"/>
+        &nbsp;
+        <input type="radio" name="valueForMoney" value="3" class="form-check-input"/>
+        &nbsp;
+        <input type="radio" name="valueForMoney" value="4" class="form-check-input"/>
+        &nbsp;
+        <input type="radio" name="valueForMoney" value="5" class="form-check-input"/>
+        &nbsp;{{ entry_good }}
+      </div>
+      <div id="error-valueForMoney" class="invalid-feedback"></div>
+    </div>
     {{ captcha }}
     <div class="row">
       <div class="col">
